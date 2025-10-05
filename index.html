@@ -9,13 +9,34 @@
     p {margin-top:10px;}
   </style>
   <script>
-    // Vážené affiliate odkazy
-    const weightedLinks = [
-      { url: "https://www.arno.cz/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=b78f7fed", weight: 70, name: "Arno" },
-      { url: "https://join.honeygain.com/DYKJA0A10D", weight: 30, name: "Honeygain" }
+    // Seznam affiliate odkazů s provizí (%)
+    const links = [
+      { url: "https://www.arno.cz/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=b78f7fed", commission: 11.2, name: "Arno CZ" },
+      { url: "https://www.arno-obuv.sk/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=e6456574", commission: 11.2, name: "Arno SK" },
+      { url: "https://login.affial.com/scripts/8m338kc?a_aid=68df9540ebfb0&a_bid=e153a56e", commission: 19, name: "Bionutrian" },
+      { url: "https://www.collalloc.com/sk?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=b63f79bc", commission: 19, name: "Collalloc SK" },
+      { url: "https://login.affial.com/scripts/8m338kc?a_aid=68df9540ebfb0&a_bid=4216997e", commission: 5.7, name: "DaDaboom SK" },
+      { url: "https://www.designpropaganda.cz/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=20a6b859", commission: 6, name: "Design Propaganda" },
+      { url: "https://www.feminus.cz/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=a812cc02", commission: 20, name: "Feminus" },
+      { url: "https://www.homacz.cz/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=50d03a62", commission: 12, name: "Homacz CZ" },
+      { url: "https://www.homahu.hu/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=05c004df", commission: 12, name: "Homahu HU" },
+      { url: "https://www.homa.sk/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=7b5b95b5", commission: 12, name: "Homa SK" },
+      { url: "https://www.kloubus.cz/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=e66f632e", commission: 20, name: "Kloubus CZ" },
+      { url: "https://www.kojenecke-obleceni.eu/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=8aa4d31b", commission: 5.3, name: "Kojenecke obleceni" },
+      { url: "https://login.affial.com/scripts/8m338kc?a_aid=68df9540ebfb0&a_bid=f4ac4231", commission: 11.3, name: "Kosmetikomat CZ" },
+      { url: "https://login.affial.com/scripts/8m338kc?a_aid=68df9540ebfb0&a_bid=c9ed2be3", commission: 20, name: "Kralux CZ" },
+      { url: "https://login.affial.com/scripts/8m338kc?a_aid=68df9540ebfb0&a_bid=57beb0e0", commission: 22.5, name: "Onlinepsiaskola SK" },
+      { url: "https://onlinepsiskola.cz/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=0d261d7b", commission: 22.5, name: "Onlinepsiskola CZ" },
+      { url: "https://www.primulus.cz/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=07eafc2d", commission: 25, name: "Primulus CZ" },
+      { url: "https://login.affial.com/scripts/8m338kc?a_aid=68df9540ebfb0&a_bid=e721789d", commission: 20, name: "Veganus CZ" },
+      { url: "https://www.vimax.cz/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=4ee0f9e1", commission: 13, name: "Vimax CZ" },
+      { url: "https://vimax.sk/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=936ca2ad", commission: 13, name: "Vimax SK" },
+      { url: "https://join.honeygain.com/DYKJA0A10D", commission: 20, name: "Honeygain" }
     ];
 
-    // Funkce pro výběr odkazu podle váhy
+    // Převod provize na váhu pro náhodný výběr
+    const weightedLinks = links.map(link => ({ url: link.url, weight: link.commission, name: link.name }));
+
     function getWeightedLink(links) {
       const totalWeight = links.reduce((sum, link) => sum + link.weight, 0);
       let random = Math.random() * totalWeight;
@@ -25,10 +46,9 @@
       }
     }
 
-    // Výběr odkazu
     const selectedLink = getWeightedLink(weightedLinks);
 
-    // Uložení statistik do localStorage (jednoduché měření kliků)
+    // Lokální statistiky kliků
     const statsKey = "affiliateFunnelStats";
     let stats = JSON.parse(localStorage.getItem(statsKey)) || {};
     stats[selectedLink.name] = (stats[selectedLink.name] || 0) + 1;
@@ -39,7 +59,6 @@
       window.location.href = selectedLink.url;
     }, 2000);
 
-    // Funkce pro zobrazení statistik (pouze pro tebe)
     function showStats() {
       const s = JSON.parse(localStorage.getItem(statsKey)) || {};
       alert("Kliknutí v tomto prohlížeči:\n" + Object.entries(s).map(([k,v]) => `${k}: ${v}`).join("\n"));
