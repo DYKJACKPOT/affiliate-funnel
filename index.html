@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exkluzivní nabídky</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    header {
+      padding: 40px 20px 20px;
+      animation: fadeDown 1s ease forwards;
+      opacity: 0;
+    }
+    header h1 {
+      font-size: 2.3em;
+      margin: 0 0 10px;
+    }
+    header p {
+      font-size: 1.1em;
+      opacity: 0.9;
+    }
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 90%;
+      max-width: 400px;
+      margin-top: 40px;
+    }
+    a.button {
+      background: #fff;
+      color: #2575fc;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 15px;
+      border-radius: 14px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s ease forwards;
+    }
+    a.button:nth-child(1) { animation-delay: 0.3s; }
+    a.button:nth-child(2) { animation-delay: 0.6s; }
+    a.button:nth-child(3) { animation-delay: 0.9s; }
+    a.button:hover {
+      transform: scale(1.08);
+      background: #f4f4f4;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    footer {
+      margin-top: auto;
+      padding: 20px;
+      font-size: 0.9em;
+      opacity: 0.8;
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    /* Animace */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsivita */
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.7em;
+      }
+      header p {
+        font-size: 1em;
+      }
+      a.button {
+        font-size: 1em;
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🔥 Exkluzivní nabídky jen pro tebe</h1>
+    <p>Ušetři čas i peníze – vyber si z našich ověřených partnerů.</p>
+  </header>
+
+  <div class="links">
+    <a class="button" href="https://www.arno.cz/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=b78f7fed" target="_blank">👟 Nakupuj na Arno.cz</a>
+    <a class="button" href="https://www.arno-obuv.sk/" target="_blank">👞 Nakupuj na Arno-obuv.sk</a>
+    <a class="button" href="https://join.honeygain.com/DYKJA0A10D" target="_blank">💸 Připoj se k Honeygain</a>
+  </div>
+
+  <footer>
+    © 2025 | Tvůj zdroj výhodných nabídek
+  </footer>
+</body>
+</html>
