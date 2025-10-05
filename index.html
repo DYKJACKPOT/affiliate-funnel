@@ -5,11 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DYKJACKPOT Funnel</title>
   <style>
-    body {display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;flex-direction:column;text-align:center;}
-    p {margin-top:10px;}
+    body {
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      font-family:sans-serif;
+      flex-direction:column;
+      text-align:center;
+    }
+    img {cursor:pointer;}
   </style>
   <script>
-    // Seznam affiliate odkazů s provizí (%)
     const links = [
       { url: "https://www.arno.cz/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=b78f7fed", commission: 11.2, name: "Arno CZ" },
       { url: "https://www.arno-obuv.sk/?utm_medium=affiliate&utm_campaign=affial.com&utm_source=pap&a_aid=68df9540ebfb0&a_bid=e6456574", commission: 11.2, name: "Arno SK" },
@@ -34,19 +41,16 @@
       { url: "https://join.honeygain.com/DYKJA0A10D", commission: 20, name: "Honeygain" }
     ];
 
-    // Převod provize na váhu pro náhodný výběr
-    const weightedLinks = links.map(link => ({ url: link.url, weight: link.commission, name: link.name }));
-
     function getWeightedLink(links) {
-      const totalWeight = links.reduce((sum, link) => sum + link.weight, 0);
+      const totalWeight = links.reduce((sum, link) => sum + link.commission, 0);
       let random = Math.random() * totalWeight;
       for (const link of links) {
-        if (random < link.weight) return link;
-        random -= link.weight;
+        if (random < link.commission) return link;
+        random -= link.commission;
       }
     }
 
-    const selectedLink = getWeightedLink(weightedLinks);
+    const selectedLink = getWeightedLink(links);
 
     // Lokální statistiky kliků
     const statsKey = "affiliateFunnelStats";
@@ -54,10 +58,9 @@
     stats[selectedLink.name] = (stats[selectedLink.name] || 0) + 1;
     localStorage.setItem(statsKey, JSON.stringify(stats));
 
-    // Přesměrování po 2 sekundách
-    setTimeout(() => {
+    function openLink() {
       window.location.href = selectedLink.url;
-    }, 2000);
+    }
 
     function showStats() {
       const s = JSON.parse(localStorage.getItem(statsKey)) || {};
@@ -66,8 +69,8 @@
   </script>
 </head>
 <body>
-  <h1>DYKJACKPOT Funnel</h1>
-  <p>Probíhá přesměrování na nejlepší nabídku…</p>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Third_eye_symbol.png" alt="Třetí oko" width="150" onclick="openLink()">
   <button onclick="showStats()">Ukázat statistiky kliků (lokálně)</button>
 </body>
 </html>
+
